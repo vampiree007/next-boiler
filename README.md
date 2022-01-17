@@ -1,34 +1,60 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+PROJECT SETUP
 
-## Getting Started
+HIERCHY
+1. FLOW : PAGES => LAYOUT(MAIN) => MAIN => COMPONENTS
 
-First, run the development server:
+NOTE: 
+1. PAGES: Should only contain SEO fields provided into Layout.
+2. LAYOUT: Layout support HEAD tag and is important to handle SEO of application. Layout shall receive all HEAD tah attributes dynamically from PAGES.
+3. MAIN: Direct successor to pages folder. Will contain files named similar to pages I.e. home.js (pages) => home.main.jsx (mains)
+4. COMPONENTS: Contains all components of the Application I.e. Buttons, Header, Footer etc.
 
-```bash
-npm run dev
-# or
-yarn dev
-```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+AUTH SETUP:
+1. Handled in contexts folder.
+2. Contexts folder contains auth context that shall handle all auth logics and should return user with => useAuth hook.
+3. User is accessible throughout application from context
+4. To use user import useAuth hook and use it. I.e. const auth = useAuth() => user = auth.user.
 
-You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.js`.
+CONTEXTS:
+1. All wrappers or HOF Wrappers should be handled inside Context.
+2. Context shall return a calculates value with a hook.
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
 
-## Learn More
+STYLING:
+1. Project works on SCSS. (NO CSS SHOULD BE USED ANYWHERE).
+2. STYLES folder available in root contains all scss files.
+3. STYLES FOLDER structure shall be similar to App architecture. I.e. Same folder shall be available inside it but shall contain scss file.
+3. NEXT JS supports two type of SCSS files.
+    1. GLOBAL.scss : Can be imported only inside _app.js. 
+        => USAGE: className='containers'
+        => WORKS LIKE TRADITIONAL SCSS
 
-To learn more about Next.js, take a look at the following resources:
+    2. FILE.module.scss : Can be used in files.  
+        => USAGE: classname={styles.file} 
+        => NOTE: NEED IMPORTING I.e. import styles from '../styles/FILE.module.scss
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+LIBRARY INSTALLATION FLOW:
+1. Permission shall be applicable for installation of any third party library.
+2. No unused library shall be present inside package.json file.
+3. Proper R&D should be done before using any library with following in mind => (WEEKLY DOWNLOADS, SUPPORT, ACTIVE ISSUES, ACTIVE PRs).
 
-## Deploy on Vercel
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+STATE MANAGEMENT:
+1. REDUX SHOULD BE USED FOR STATE MANAGEMNT
+2. REDUX HAS BEEN SETUP WITH REDUX-THUNK, REDUX-PROMISE to support PROMISE HANDLING.
+3. Point 2 is important so as to minimize api calls inside components directly.
+4. As much as possible API calls shall take place inside actions of REDUX made smart object using REDUX-THUNK AND PROMISE MIDDLEWARES.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+
+COMMIT FLOW:
+1. NO Warning or Error shall be seen on console of browser.
+2. RUN 'npm run lint' to check and fix lint error and warnings.
+3. RUN npm run build command to check issues before trying to commit to GIthub.
+4. Push to Github
+
+
+PROJECT START FLOW
+1. Run 'npm install' followed by 'npm run dev' command.
